@@ -1,0 +1,17 @@
+﻿<form asp-controller="NoticeBoard" asp-action="Index" method="get">
+    <select name="searchField" id="searchField"
+        class="form-control"
+        style="width:80px;display:inline-block;">
+        <option value="Name">성명</option>
+        <option value="Title">제목</option>
+        <option value="Content">내용</option>
+    </select>
+    <input type="text" name="searchQuery" id="searchQuery"
+        class="form-control"
+        style="width:200px;display:inline-block;"
+        value="" />
+    <input type="submit" name="searchButton"
+        class="form-control"
+        style="width:100px;display:inline-block;"
+        value="검색" />
+</form>

@@ -1,0 +1,80 @@
+﻿@model NoticeCommentModel
+<table style="padding:10px;margin-left:20px;margin-right:20px;width:95%;">
+    @foreach(CommentModel comment in Model.CommentList)
+    {
+        <tr style="border-bottom:1px dotted silver;">
+            <td style="width:100px;">
+                @comment.Name
+            </td>
+            <td style="width:400px;">
+                @Html.Raw(comment.Comment.Replace("\r\n", "<br />"))
+            </td>
+            <td style="width:200px;">
+                @comment.WriteDate
+            </td>
+            <td style="width:10px;text-align:center;">
+                <a href="/NoticeBoard/DeleteComment?noticeID=@Model.NoticeID&id=@comment.ID"
+                    title="댓글 삭제">
+                    <img border="0" src="/Image/NoticeBoard/delete.gif" />
+                </a>
+            </td>
+        </tr>
+    }
+</table>
+<br />
+<script>
+    function CheckForm()
+    {
+        var name     = document.getElementById("name");
+        var password = document.getElementById("password");
+        var comment  = document.getElementById("comment");
+
+        if(name.value.length < 1 || comment.value.length < 1 || password.value.length < 1)
+        {
+            window.alert("성명, 패스워드 및 댓들을 입력해 주시기 바랍니다.");
+
+            name.focus();
+
+            return false;
+        }
+
+        return true;
+    }
+</script>
+<form asp-controller="NoticeBoard" asp-action="AddComment" method="post" onsubmit="return CheckForm();">
+    <input type="hidden" name="noticeID" value="@Model.NoticeID" />
+    <table style="width:520px;margin-left:auto;">
+        <tr>
+            <td style="width:60px;text-align:right;">성명&nbsp;</td>
+            <td style="width:100px;">
+                <input type="text" name="name" id="name"
+                    class="form-control"
+                    style="width:100px;display:inline-block;" />
+            </td>
+            <td style="width:80px;text-align:right;">패스워드&nbsp;</td>
+            <td style="width:100px;">
+                <input type="password" name="password" id="password"
+                    class="form-control"
+                    style="width:100px;display:inline-block;" />
+            </td>
+            <td style="width:180px;text-align:right;">
+                <input type="submit"
+                    class="form-control btn btn-primary"
+                    style="width:120px;display:inline-block;"
+                    value="댓글 남기기" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width:60px;text-align:right;">댓글&nbsp;</td>
+            <td colspan="4" style="width:460px;">
+                <textarea name="comment" id="comment"
+                    class="form-control"
+                    style="width:460px;display:inline-block;"
+                    rows="3"
+                    cols="70">
+                </textarea>
+            </td>
+        </tr>
+    </table>
+</form>
+<hr />
